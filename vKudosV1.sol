@@ -17,8 +17,8 @@ contract vKudosSoulbound is ERC721, Ownable, EIP712, ERC721Votes {
     mapping(uint256=>mapping(address=>uint256)) public wKudos;
     // mapping whitelisted kudos ids
     mapping(uint256=>bool) public whitelistedIds;
-    // kudos 1155 Collection address on Polygon
-    address public constant kudosCollection = 0x60576A64851C5B42e8c57E3E4A5cF3CF4eEb2ED6;
+    // kudos 1155 Collection address on Polygon Mumbai testnet
+    address public constant kudosCollection = 0xB876baF8F69cD35fb96A17a599b070FBdD18A6a1;
     // kudos ids whitelist is active or not
     bool public activeWhitelist;
 
