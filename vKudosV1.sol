@@ -13,8 +13,8 @@ contract vKudosSoulbound is ERC721, Ownable, EIP712, ERC721Votes {
 
     Counters.Counter private _tokenIdCounter;
 
-    // mapping the kudos id of an holder to its wKudos id
-    mapping(uint256=>mapping(address=>uint256)) public wKudos;
+    // mapping the kudos id of an holder to its vKudos id
+    mapping(uint256=>mapping(address=>uint256)) public vKudos;
     // mapping whitelisted kudos ids
     mapping(uint256=>bool) public whitelistedIds;
     // kudos 1155 Collection address on Polygon Mumbai testnet
@@ -23,8 +23,8 @@ contract vKudosSoulbound is ERC721, Ownable, EIP712, ERC721Votes {
     bool public activeWhitelist;
 
     constructor(uint256[] memory ids, bool whitelist)
-        ERC721("wKudosVote", "WKV")
-        EIP712("wKudosVote", "1")
+        ERC721("vKudosVote", "vKV")
+        EIP712("vKudosVote", "1")
     {
         _tokenIdCounter.increment();
         _setWhitelistedKudos(ids);
@@ -51,13 +51,13 @@ contract vKudosSoulbound is ERC721, Ownable, EIP712, ERC721Votes {
     // mint vKudos
     function safeMint(uint256 id) public {
         //require(IERC1155(kudosCollection).balanceOf(msg.sender,id) >= 1, "you're not the owner");
-        //require(wKudos[id][msg.sender] == 0, "already minted");
+        //require([id][msg.sender] == 0, "already minted");
         require(whitelistedIds[id] == true || !activeWhitelist, "id not allowed");
 
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
-        wKudos[id][msg.sender] = tokenId;
+        vKudos[id][msg.sender] = tokenId;
     }
 
     // make the token a soulbound overriding the _beforeTokenTransfer hook
