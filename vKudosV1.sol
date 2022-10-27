@@ -50,8 +50,8 @@ contract vKudosSoulbound is ERC721, Ownable, EIP712, ERC721Votes {
 
     // mint vKudos
     function safeMint(uint256 id) public {
-        //require(IERC1155(kudosCollection).balanceOf(msg.sender,id) >= 1, "you're not the owner");
-        //require([id][msg.sender] == 0, "already minted");
+        require(IERC1155(kudosCollection).balanceOf(msg.sender,id) >= 1, "you're not the owner");
+        require([id][msg.sender] == 0, "already minted");
         require(whitelistedIds[id] == true || !activeWhitelist, "id not allowed");
 
         uint256 tokenId = _tokenIdCounter.current();
